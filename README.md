@@ -67,7 +67,7 @@ However the most important method is not listed here:
 private static object SimulateAspNet(Type type, string actionName, params object[] parms);
 ```
 
-Don't worry, you can always access not only it but also the whole project on my Github site:
+Don't worry, you can always access not only it but also the whole project on my Github site: https://github.com/jerysun/AspLite
 
 Have fun!
 Jerry
