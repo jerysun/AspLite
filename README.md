@@ -32,7 +32,7 @@ private static(bool, Type) HasController(string controllerName) {
 }
 
 /// <summary>
-/// Check if the controoler has such an action method
+/// Check if the controller has such an action method
 /// </summary>
 /// <param name="type">Controller type</param>
 /// <param name="actionName">Action method name</param>
@@ -44,7 +44,7 @@ public static bool HasAction(Type type, string actionName) =>type.GetMethods().A
 /// </summary>
 /// <param name="type">The type which will be instantiated by using DI</param>
 private static object[] CreateType(Type type) {
-  // In this case and also most of the time one contorller has only one constructor
+  // In this case and also most of the time one controller has only one constructor
   ConstructorInfo ctor = type.GetConstructors().FirstOrDefault();
   ParameterInfo[] parms = ctor.GetParameters();
 
