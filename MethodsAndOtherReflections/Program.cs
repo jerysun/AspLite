@@ -7,7 +7,8 @@ namespace MethodsAndOtherReflections
     static void Main(string[] args)
     {
       // MethodsReflection.MethodsReflectionDemo();
-      ConstructorReflection.CtorReflectionDemo();
+      // ConstructorReflection.CtorReflectionDemo();
+      PropertiesReflection.PropReflectionDemo();
     }
   }
 }
