@@ -6,7 +6,8 @@ namespace MethodsAndOtherReflections
   {
     static void Main(string[] args)
     {
-      MethodsReflection.MethodsReflectionDemo();
+      // MethodsReflection.MethodsReflectionDemo();
+      ConstructorReflection.CtorReflectionDemo();
     }
   }
 }
