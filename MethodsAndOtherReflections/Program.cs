@@ -8,7 +8,8 @@ namespace MethodsAndOtherReflections
     {
       // MethodsReflection.MethodsReflectionDemo();
       // ConstructorReflection.CtorReflectionDemo();
-      PropertiesReflection.PropReflectionDemo();
+      // PropertiesReflection.PropReflectionDemo();
+      EventsReflection.EventsReflectionDemo();
     }
   }
 }

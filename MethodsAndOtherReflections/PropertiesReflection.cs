@@ -1,9 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace MethodsAndOtherReflections
 {
@@ -69,9 +67,19 @@ namespace MethodsAndOtherReflections
 			}
 			else
 			{// new - brutally hide/shield
-			 // if it's defined within the current type, then it's just an ordinary method
-				if (type == method.DeclaringType) return string.Empty;
-				return "new";
+				var flags = method.IsPublic ? BindingFlags.Public : BindingFlags.NonPublic;
+				flags |= method.IsStatic ? BindingFlags.Static : BindingFlags.Instance;
+				var paramTypes = method.GetParameters().Select(p => p.ParameterType).ToArray();
+
+				if (method.DeclaringType.BaseType.GetMethod(method.Name, flags, null, paramTypes, null) == null)
+				{
+					// It's not defined in its base type, but only in the current type, so it's just an ordinary method
+					return String.Empty;
+				}
+				else
+				{
+					return "new";
+				}
 			}
 		}
 
