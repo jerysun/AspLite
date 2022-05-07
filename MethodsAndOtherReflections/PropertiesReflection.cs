@@ -30,7 +30,7 @@ namespace MethodsAndOtherReflections
 				sb.Append(" ");
 				sb.Append(property.Name);
 				sb.Append(" ");
-				sb.Append(GetPropertyConstrucotr(property));
+				sb.Append(GetPropertyConstructor(property));
         Console.WriteLine(sb.ToString());
       }
     }
@@ -83,7 +83,7 @@ namespace MethodsAndOtherReflections
 			}
 		}
 
-		public static string GetPropertyConstrucotr(PropertyInfo property)
+		public static string GetPropertyConstructor(PropertyInfo property)
     {
 			StringBuilder sb = new();
 			sb.Append("{ ");

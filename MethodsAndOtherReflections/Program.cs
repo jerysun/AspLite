@@ -9,7 +9,8 @@ namespace MethodsAndOtherReflections
       // MethodsReflection.MethodsReflectionDemo();
       // ConstructorReflection.CtorReflectionDemo();
       // PropertiesReflection.PropReflectionDemo();
-      EventsReflection.EventsReflectionDemo();
+      // EventsReflection.EventsReflectionDemo();
+      IndexerReflection.IndexerReflectionDemo();
     }
   }
 }
