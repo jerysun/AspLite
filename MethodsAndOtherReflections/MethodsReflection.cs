@@ -32,8 +32,16 @@ namespace MethodsAndOtherReflections
 			}
 
 			var ntypes = type.GetNestedTypes();
-			var delgateType = ntypes.Where(t => t.BaseType.Name.EndsWith("Delegate")).FirstOrDefault();
-			if (delgateType != null) Console.WriteLine(GetDelegateInfo(delgateType));
+			var delgateTypes = ntypes.Where(t => t.BaseType.Name.EndsWith("Delegate"));
+			foreach (var delgateType in delgateTypes) Console.WriteLine(GetDelegateInfo(delgateType));
+
+			var fields = type.GetFields(BindingFlags.Public | BindingFlags.Static | BindingFlags.Instance | BindingFlags.NonPublic);
+			foreach(var field in fields)
+      {
+				Type fType = field.FieldType;
+				string nullTypeName = GetNullableVariableTypeName(fType);
+        if (nullTypeName != string.Empty) Console.WriteLine(nullTypeName);
+      }
 		}
 
 		public static string GetVisibility(MethodInfo method)
@@ -226,6 +234,18 @@ namespace MethodsAndOtherReflections
 			object? value = parameter.DefaultValue;
 			return value != null ? value.ToString()! : string.Empty;
 		}
+
+		public static string GetNullableVariableTypeName(Type type)
+    {
+			if (!type.IsGenericType) return string.Empty;
+
+			if (type.GetGenericTypeDefinition() == typeof(Nullable<>))
+      {
+				Type nullType = type.GetGenericArguments().FirstOrDefault();
+				if (nullType != null) return nullType.Name + "?";
+      }
+			return string.Empty;
+		}
 	}
 
 	#region use cases
@@ -248,6 +268,8 @@ namespace MethodsAndOtherReflections
 	public class MyClass14 : C//, A
 	{
 		public delegate double Dduble(float a, int c);
+		public DateTime? myDate; // failed
+		// public Nullable<DateTime> myDate;
 		public void TestA()
 		{
 			throw new NotImplementedException();
