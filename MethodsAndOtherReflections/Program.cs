@@ -6,12 +6,12 @@ namespace MethodsAndOtherReflections
   {
     static void Main(string[] args)
     {
-      // MethodsReflection.MethodsReflectionDemo();
+       MethodsReflection.MethodsReflectionDemo();
       // ConstructorReflection.CtorReflectionDemo();
       // PropertiesReflection.PropReflectionDemo();
       // EventsReflection.EventsReflectionDemo();
       // IndexerReflection.IndexerReflectionDemo();
-      AttributesReflection.AttrReflectionDemo();
+      // AttributesReflection.AttrReflectionDemo();
     }
   }
 }

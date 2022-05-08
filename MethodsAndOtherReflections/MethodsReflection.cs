@@ -30,6 +30,10 @@ namespace MethodsAndOtherReflections
 				sb.Append(")");
 				Console.WriteLine(sb.ToString());
 			}
+
+			var ntypes = type.GetNestedTypes();
+			var delgateType = ntypes.Where(t => t.BaseType.Name.EndsWith("Delegate")).FirstOrDefault();
+			if (delgateType != null) Console.WriteLine(GetDelegateInfo(delgateType));
 		}
 
 		public static string GetVisibility(MethodInfo method)
@@ -108,6 +112,36 @@ namespace MethodsAndOtherReflections
 			return returnType.Name;
 		}
 
+		public static string GetDelegateInfo(Type type)
+    {
+			// Parse the delegate, also including the one inside the nested type
+			if (!type.IsSubclassOf(typeof(Delegate))) return string.Empty;
+
+			StringBuilder sb = new();
+			MethodInfo method = type.GetMethod("Invoke");
+
+			//The delegate is defined inside a class
+			if (type.IsNested)
+			{
+				sb.Append(GetVisibility(method));
+				sb.Append(" ");
+			}
+			else
+			{//defined outside of a class
+				sb.Append(type.IsPublic ? "public " : "internal ");
+			}
+			sb.Append(type.IsSealed && type.IsAbstract ? "static" : String.Empty);
+			sb.Append("delegate ");
+			sb.Append(GetReturn(method));
+			sb.Append(" ");
+			sb.Append(type.Name);
+			sb.Append("(");
+			sb.Append(GetParams(method));
+			sb.Append(")");
+
+			return sb.ToString().Trim();
+    }
+
 		public static string GetAsync(MethodInfo method) => method.GetCustomAttribute(typeof(AsyncStateMachineAttribute)) == null ? string.Empty : "async ";
 
 		// Judge if it's a generic method, then return the generic arguments
@@ -135,13 +169,22 @@ namespace MethodsAndOtherReflections
 
 			int length = parameters.Length - 1;
 			StringBuilder sb = new();
+			string result = string.Empty;
 			for (int i = 0; i <= length; i++)
 			{
-				sb.Append(InRefOutParams(parameters[i]));
-				sb.Append(" ");
-				sb.Append(GetParamType(parameters[i]));
-				sb.Append(" ");
-				sb.Append(parameters[i].Name);
+				result = InRefOutParams(parameters[i]);
+				if (result != string.Empty)
+				{
+					sb.Append(result);
+					sb.Append(" ");
+				}
+				result = GetParamType(parameters[i]);
+				if (result != string.Empty)
+				{
+					sb.Append(result);
+					sb.Append(" ");
+					sb.Append(parameters[i].Name);
+				}
 
 				string optArgument = GetDefaultValue(parameters[i]);
 				if (!string.IsNullOrEmpty(optArgument))
@@ -204,6 +247,7 @@ namespace MethodsAndOtherReflections
 
 	public class MyClass14 : C//, A
 	{
+		public delegate double Dduble(float a, int c);
 		public void TestA()
 		{
 			throw new NotImplementedException();
