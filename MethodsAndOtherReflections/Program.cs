@@ -12,7 +12,8 @@ namespace MethodsAndOtherReflections
       // EventsReflection.EventsReflectionDemo();
       // IndexerReflection.IndexerReflectionDemo();
       // AttributesReflection.AttrReflectionDemo();
-      GenericsReflection.GenReflectionDemo();
+      // GenericsReflection.GenReflectionDemo();
+      EmitReflection.EmitReflectionDemo();
     }
   }
 }
